@@ -461,7 +461,7 @@ function Portfolio() {
               <p className="font-display text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.05] tracking-[0.03em]">
                 Let&apos;s build something
                 <br />
-                <span className="italic text-primary">worth shipping.</span>
+                <span className="font-serif italic text-primary">worth shipping.</span>
               </p>
               <a
                 href="mailto:djurslinnjameskm@gmail.com"
