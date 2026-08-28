@@ -243,9 +243,9 @@ function Portfolio() {
             <div className="relative min-h-[300px] overflow-hidden md:col-span-5">
               <div
                 className="absolute inset-0 bg-[linear-gradient(150deg,var(--sky),var(--violet))]"
-                style={{ clipPath: "ellipse(125% 120% at 78% 42%)" }}
+                style={{ clipPath: "ellipse(108% 128% at 100% 50%)" }}
               />
-              <div className="relative grid h-full place-items-center px-8 py-14">
+              <div className="relative flex h-full flex-col items-center justify-center gap-8 px-8 py-14">
                 <div className="grid size-40 place-items-center rounded-full border border-card/60 bg-card/70 backdrop-blur-sm md:size-48">
                   <span className="font-display text-4xl uppercase tracking-tight md:text-5xl">DJ</span>
                 </div>
