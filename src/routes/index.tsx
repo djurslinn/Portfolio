@@ -234,14 +234,30 @@ function Portfolio() {
         <section id="work" className="scroll-mt-24 pt-16">
           <SectionHeading n="01" title="Selected Work" />
           <div className="grid gap-6 md:grid-cols-2">
-            {PROJECTS.map((p) => (
+            {PROJECTS.map((p, pi) => (
               <article
                 key={p.n}
-                className="group relative flex flex-col rounded-lg border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent hover:shadow-[var(--shadow-lift)]"
+                className="reveal group relative flex flex-col rounded-lg border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent hover:shadow-[var(--shadow-lift)]"
               >
-                <span className="label">{p.n}</span>
-                <h3 className="mt-4 font-display text-2xl leading-tight md:text-3xl">{p.title}</h3>
-                <p className="mt-2 font-mono text-xs text-primary">{p.stack}</p>
+                <div className="flex items-start justify-between">
+                  <span className="label">{p.n}</span>
+                  <span className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
+                  </span>
+                </div>
+                <h3 className="mt-4 font-display text-2xl uppercase leading-tight tracking-[0.04em] md:text-3xl">
+                  {p.title}
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {p.stack.split(" · ").map((t, ti) => (
+                    <span
+                      key={t}
+                      className={`rounded-full px-2.5 py-0.5 font-mono text-[0.65rem] font-medium ${CHIP_TONES[(pi + ti) % CHIP_TONES.length]}`}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
                 <ul className="mt-6 space-y-3 border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
                   {p.lines.map((l) => (
                     <li key={l} className="flex gap-3">
@@ -262,12 +278,14 @@ function Portfolio() {
             {EXPERIENCE.map((e) => (
               <li
                 key={e.role}
-                className="group grid gap-4 border-b border-border py-8 transition-colors hover:bg-secondary/60 md:grid-cols-12 md:gap-8 md:px-4"
+                className="reveal group grid gap-4 border-b border-border py-8 transition-colors hover:bg-secondary/60 md:grid-cols-12 md:gap-8 md:px-4"
               >
                 <p className="label md:col-span-3">{e.when}</p>
                 <div className="md:col-span-4">
-                  <h3 className="font-display text-xl leading-snug md:text-2xl">{e.role}</h3>
-                  <p className="mt-1 text-sm text-primary">{e.org}</p>
+                  <h3 className="font-display text-xl uppercase leading-snug tracking-[0.04em] md:text-2xl">
+                    {e.role}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-primary">{e.org}</p>
                 </div>
                 <div className="space-y-2 text-sm leading-relaxed text-muted-foreground md:col-span-5">
                   {e.lines.map((l) => (
