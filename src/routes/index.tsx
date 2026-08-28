@@ -403,29 +403,50 @@ function Portfolio() {
           <div className="relative overflow-hidden rounded-xl border border-border bg-card p-10 md:p-16">
             <div className="halo pointer-events-none absolute inset-x-0 -top-24 h-72 opacity-80" />
             <div className="relative">
-              <p className="font-display text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] tracking-tight">
+              <p className="font-display text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.05] tracking-[0.03em]">
                 Let&apos;s build something
                 <br />
                 <span className="italic text-primary">worth shipping.</span>
               </p>
+              <a
+                href="mailto:djurslinnjameskm@gmail.com"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+              >
+                <Mail className="size-4" />
+                Send me an email
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
               <div className="mt-10 grid gap-6 border-t border-border pt-8 md:grid-cols-4">
                 {[
-                  { k: "Email", v: "djurslinnjameskm@gmail.com", href: "mailto:djurslinnjameskm@gmail.com" },
-                  { k: "Phone", v: "+91 75599 47412", href: "tel:+917559947412" },
+                  {
+                    k: "Email",
+                    v: "djurslinnjameskm@gmail.com",
+                    href: "mailto:djurslinnjameskm@gmail.com",
+                    icon: Mail,
+                  },
+                  { k: "Phone", v: "+91 75599 47412", href: "tel:+917559947412", icon: Phone },
                   {
                     k: "LinkedIn",
                     v: "in/djurslinn-james",
                     href: "https://linkedin.com/in/djurslinn-james",
+                    icon: Linkedin,
                   },
-                  { k: "GitHub", v: "github.com/djurslinn", href: "https://github.com/djurslinn" },
-                ].map((c) => (
-                  <div key={c.k}>
-                    <p className="label">{c.k}</p>
+                  { k: "GitHub", v: "github.com/djurslinn", href: "https://github.com/djurslinn", icon: Github },
+                ].map((c, ci) => (
+                  <div key={c.k} className="group">
+                    <p className="label flex items-center gap-2">
+                      <span
+                        className={`grid size-6 place-items-center rounded-md ${CHIP_TONES[ci % CHIP_TONES.length]}`}
+                      >
+                        <c.icon className="size-3.5" />
+                      </span>
+                      {c.k}
+                    </p>
                     <a
                       href={c.href}
                       target={c.href.startsWith("http") ? "_blank" : undefined}
                       rel="noreferrer"
-                      className="link-underline mt-2 inline-block break-all text-sm hover:text-primary"
+                      className="link-underline mt-2 inline-block break-all text-sm font-medium hover:text-primary"
                     >
                       {c.v}
                     </a>
