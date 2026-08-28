@@ -1,4 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Mail,
+  Phone,
+  Linkedin,
+  Github,
+  Code2,
+  Layers,
+  Database,
+  Wrench,
+  Sparkles,
+  GraduationCap,
+  Award,
+  Languages,
+  HeartHandshake,
+} from "lucide-react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,16 +110,49 @@ const CERTS = [
   "Certified Cyber Security Analyst — RedTeam360",
 ];
 
+const STACK_ICONS = [Code2, Layers, Database, Wrench, Sparkles];
+
+const CHIP_TONES = [
+  "bg-sky/60 text-foreground",
+  "bg-violet/60 text-foreground",
+  "bg-mint/60 text-foreground",
+  "bg-amber/70 text-foreground",
+  "bg-coral/60 text-foreground",
+];
+
 function SectionHeading({ n, title }: { n: string; title: string }) {
   return (
-    <div className="mb-10 flex items-baseline gap-4 border-t border-border pt-4">
+    <div className="reveal mb-10 flex items-baseline gap-4 border-t border-border pt-4">
       <span className="label">{n}</span>
-      <h2 className="font-display text-2xl tracking-tight md:text-3xl">{title}</h2>
+      <h2 className="font-display text-2xl uppercase tracking-[0.08em] md:text-3xl">{title}</h2>
     </div>
   );
 }
 
+function useReveal() {
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).classList.add("in-view");
+            io.unobserve(e.target as HTMLElement);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    els.forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 70}ms`;
+      io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+}
+
 function Portfolio() {
+  useReveal();
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
