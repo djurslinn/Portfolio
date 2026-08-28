@@ -170,8 +170,9 @@ function Portfolio() {
           </nav>
           <a
             href="mailto:djurslinnjameskm@gmail.com"
-            className="label rounded-full border border-border px-4 py-2 transition-colors hover:border-primary hover:text-primary"
+            className="label inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
           >
+            <Mail className="size-3.5" />
             Get in touch
           </a>
         </div>
@@ -182,11 +183,30 @@ function Portfolio() {
         <div className="halo pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-70" />
         <div className="rule-grid pointer-events-none absolute inset-0 opacity-60" />
         <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-20 md:pt-28">
-          <p className="label rise">Kottayam, Kerala — Available for work</p>
-          <h1 className="rise mt-6 font-display text-[clamp(2.75rem,9vw,7.5rem)] leading-[0.92] tracking-tight">
+          <p className="label rise flex items-center gap-2.5">
+            <span className="ping-dot relative inline-block size-2 rounded-full bg-emerald-500 text-emerald-500" />
+            Kottayam, Kerala — Available for work
+          </p>
+          <h1 className="rise mt-6 font-display text-[clamp(2.75rem,9vw,7.5rem)] uppercase leading-[0.92] tracking-tight">
             Djurslinn James
           </h1>
-          <div className="mt-8 grid gap-10 border-t border-border pt-8 md:grid-cols-12">
+          <div className="rise mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+            >
+              View my work
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+            >
+              Let&apos;s talk
+              <ArrowUpRight className="size-4" />
+            </a>
+          </div>
+          <div className="mt-10 grid gap-10 border-t border-border pt-8 md:grid-cols-12">
             <p className="rise max-w-xl text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
               BCA graduate and <span className="text-foreground">full stack developer</span> building web
               applications and AI-powered products with Python, Django, React and SQL. I care about clear
