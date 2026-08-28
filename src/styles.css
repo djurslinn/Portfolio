@@ -39,7 +39,8 @@
   --color-mint: var(--mint);
   --color-amber: var(--amber);
   --color-coral: var(--coral);
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-display: "Rammetto One", ui-serif, Georgia, serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }

@@ -17,6 +17,7 @@ import {
   Languages,
   HeartHandshake,
 } from "lucide-react";
+import { SiGithub, SiInstagram, SiBehance, SiWhatsapp } from "react-icons/si";
 
 
 export const Route = createFileRoute("/")({
@@ -112,6 +113,14 @@ const CERTS = [
 
 const STACK_ICONS = [Code2, Layers, Database, Wrench, Sparkles];
 
+const SOCIALS = [
+  { k: "GitHub", href: "https://github.com/djurslinn", icon: SiGithub },
+  { k: "LinkedIn", href: "https://linkedin.com/in/djurslinn-james", icon: Linkedin },
+  { k: "Instagram", href: "https://instagram.com", icon: SiInstagram },
+  { k: "Behance", href: "https://behance.net", icon: SiBehance },
+  { k: "WhatsApp", href: "https://wa.me/917559947412", icon: SiWhatsapp },
+];
+
 const CHIP_TONES = [
   "bg-sky/60 text-foreground",
   "bg-violet/60 text-foreground",
@@ -179,55 +188,101 @@ function Portfolio() {
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative overflow-hidden">
-        <div className="halo pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-70" />
-        <div className="rule-grid pointer-events-none absolute inset-0 opacity-60" />
-        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-20 md:pt-28">
-          <p className="label rise flex items-center gap-2.5">
-            <span className="ping-dot relative inline-block size-2 rounded-full bg-emerald-500 text-emerald-500" />
-            Kottayam, Kerala — Available for work
-          </p>
-          <h1 className="rise mt-6 font-display text-[clamp(2.75rem,9vw,7.5rem)] uppercase leading-[0.92] tracking-tight">
-            Djurslinn James
-          </h1>
-          <div className="rise mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
-            >
-              View my work
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
-            >
-              Let&apos;s talk
-              <ArrowUpRight className="size-4" />
-            </a>
-          </div>
-          <div className="mt-10 grid gap-10 border-t border-border pt-8 md:grid-cols-12">
-            <p className="rise max-w-xl text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
-              BCA graduate and <span className="text-foreground">full stack developer</span> building web
-              applications and AI-powered products with Python, Django, React and SQL. I care about clear
-              interfaces, dependable data models and shipping real things.
-            </p>
-            <dl className="rise grid grid-cols-2 gap-6 md:col-span-5 md:grid-cols-2">
-              {[
-                ["10+", "Projects built"],
-                ["8.16", "CGPA / 10"],
-                ["3", "Internships & simulations"],
-                ["4", "Certifications"],
-              ].map(([v, k]) => (
-                <div key={k}>
-                  <dt className="font-display text-4xl leading-none">{v}</dt>
-                  <dd className="label mt-2">{k}</dd>
+      <section id="top" className="relative overflow-hidden bg-mist px-4 pb-16 pt-6 md:px-6 md:pt-10">
+        <div className="halo pointer-events-none absolute inset-x-0 top-0 h-[520px] opacity-60" />
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-lift)]">
+          <div className="grid md:grid-cols-12">
+            {/* Left */}
+            <div className="relative z-10 px-8 py-12 md:col-span-7 md:px-14 md:py-20">
+              <p className="label rise flex items-center gap-2.5">
+                <span className="ping-dot relative inline-block size-2 rounded-full bg-emerald-500 text-emerald-500" />
+                Full stack developer — Kerala, India
+              </p>
+              <h1 className="rise mt-6 font-display text-[clamp(1.9rem,4.6vw,3.4rem)] uppercase leading-[1.15] tracking-tight">
+                Hello, I&apos;m
+                <br />
+                <span className="text-primary">Djurslinn</span> James
+              </h1>
+              <p className="rise mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
+                BCA graduate building web and AI-powered products with Django, React and PostgreSQL. Clear
+                interfaces, dependable data models, shipped work.
+              </p>
+              <div className="rise mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#work"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                >
+                  Projects
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+                >
+                  Let&apos;s talk
+                  <ArrowUpRight className="size-4" />
+                </a>
+              </div>
+              <div className="rise mt-10 flex items-center gap-3">
+                {SOCIALS.map((s) => (
+                  <a
+                    key={s.k}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.k}
+                    className="grid size-10 place-items-center rounded-full bg-mist text-foreground transition-all duration-300 hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground"
+                  >
+                    <s.icon className="size-[18px]" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — organic panel */}
+            <div className="relative min-h-[300px] overflow-hidden md:col-span-5">
+              <div
+                className="absolute inset-0 bg-[linear-gradient(150deg,var(--sky),var(--violet))]"
+                style={{ clipPath: "ellipse(88% 130% at 100% 50%)" }}
+              />
+              <div className="relative flex h-full flex-col items-center justify-center gap-8 px-8 py-14">
+                <div className="grid size-40 place-items-center rounded-full border border-card/60 bg-card/70 backdrop-blur-sm md:size-48">
+                  <span className="font-display text-4xl uppercase tracking-tight md:text-5xl">DJ</span>
                 </div>
-              ))}
-            </dl>
+                <div className="mt-8 flex flex-wrap justify-center gap-2">
+                  {["Django", "React", "PostgreSQL", "GenAI"].map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-card/80 px-3 py-1 font-mono text-[0.65rem] font-medium tracking-wide backdrop-blur-sm"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* Stat strip */}
+          <dl className="grid grid-cols-2 border-t border-border md:grid-cols-4">
+            {[
+              ["10+", "Projects built"],
+              ["8.16", "CGPA / 10"],
+              ["3", "Internships"],
+              ["4", "Certifications"],
+            ].map(([v, k], i) => (
+              <div
+                key={k}
+                className={`px-8 py-6 md:px-10 ${i > 0 ? "border-l border-border" : ""} ${i === 2 ? "max-md:border-l-0 max-md:border-t" : ""} ${i === 3 ? "max-md:border-t" : ""}`}
+              >
+                <dt className="font-display text-2xl leading-none">{v}</dt>
+                <dd className="label mt-2">{k}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
+
 
       <main className="mx-auto max-w-6xl px-6 pb-28">
         {/* Work */}
@@ -406,7 +461,7 @@ function Portfolio() {
               <p className="font-display text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.05] tracking-[0.03em]">
                 Let&apos;s build something
                 <br />
-                <span className="italic text-primary">worth shipping.</span>
+                <span className="font-serif italic text-primary">worth shipping.</span>
               </p>
               <a
                 href="mailto:djurslinnjameskm@gmail.com"
