@@ -17,7 +17,7 @@ import {
   Languages,
   HeartHandshake,
 } from "lucide-react";
-import { SiGithub, SiLinkedin, SiInstagram, SiBehance, SiWhatsapp } from "react-icons/si";
+import { SiGithub, SiInstagram, SiBehance, SiWhatsapp } from "react-icons/si";
 
 
 export const Route = createFileRoute("/")({
@@ -115,7 +115,7 @@ const STACK_ICONS = [Code2, Layers, Database, Wrench, Sparkles];
 
 const SOCIALS = [
   { k: "GitHub", href: "https://github.com/djurslinn", icon: SiGithub },
-  { k: "LinkedIn", href: "https://linkedin.com/in/djurslinn-james", icon: SiLinkedin },
+  { k: "LinkedIn", href: "https://linkedin.com/in/djurslinn-james", icon: Linkedin },
   { k: "Instagram", href: "https://instagram.com", icon: SiInstagram },
   { k: "Behance", href: "https://behance.net", icon: SiBehance },
   { k: "WhatsApp", href: "https://wa.me/917559947412", icon: SiWhatsapp },
