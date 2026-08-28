@@ -300,13 +300,35 @@ function Portfolio() {
         {/* Stack */}
         <section id="stack" className="scroll-mt-24 pt-24">
           <SectionHeading n="03" title="Stack" />
-          <dl className="grid gap-px overflow-hidden rounded-lg border border-border bg-border">
-            {STACK.map((s) => (
-              <div key={s.k} className="grid gap-2 bg-card px-6 py-6 md:grid-cols-12 md:items-baseline">
-                <dt className="label md:col-span-3">{s.k}</dt>
-                <dd className="text-sm leading-relaxed md:col-span-9 md:text-base">{s.v}</dd>
-              </div>
-            ))}
+          <dl className="reveal grid gap-px overflow-hidden rounded-lg border border-border bg-border">
+            {STACK.map((s, si) => {
+              const Icon = STACK_ICONS[si % STACK_ICONS.length];
+              return (
+                <div
+                  key={s.k}
+                  className="group grid gap-3 bg-card px-6 py-6 transition-colors duration-300 hover:bg-secondary/70 md:grid-cols-12 md:items-center"
+                >
+                  <dt className="flex items-center gap-3 md:col-span-3">
+                    <span
+                      className={`grid size-8 place-items-center rounded-md transition-transform duration-300 group-hover:scale-110 ${CHIP_TONES[si % CHIP_TONES.length]}`}
+                    >
+                      <Icon className="size-4" />
+                    </span>
+                    <span className="label">{s.k}</span>
+                  </dt>
+                  <dd className="flex flex-wrap gap-1.5 md:col-span-9">
+                    {s.v.split(" · ").map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-300 hover:border-primary hover:text-primary"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              );
+            })}
           </dl>
         </section>
 
@@ -314,17 +336,25 @@ function Portfolio() {
         <section id="background" className="scroll-mt-24 pt-24">
           <SectionHeading n="04" title="Background" />
           <div className="grid gap-12 md:grid-cols-12">
-            <div className="space-y-8 md:col-span-7">
-              <div className="border-l-2 border-accent pl-6">
-                <p className="label">2023 — 2026</p>
-                <h3 className="mt-2 font-display text-2xl">BCA — Bachelor of Computer Applications</h3>
+            <div className="reveal space-y-8 md:col-span-7">
+              <div className="border-l-2 border-primary pl-6">
+                <p className="label flex items-center gap-2">
+                  <GraduationCap className="size-4 text-primary" /> 2023 — 2026
+                </p>
+                <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.04em]">
+                  BCA — Bachelor of Computer Applications
+                </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   St. Thomas College, Palai (MG University) · CGPA 8.16 / 10
                 </p>
               </div>
-              <div className="border-l-2 border-border pl-6">
-                <p className="label">2021 — 2023</p>
-                <h3 className="mt-2 font-display text-2xl">Higher Secondary — Science</h3>
+              <div className="border-l-2 border-violet pl-6">
+                <p className="label flex items-center gap-2">
+                  <GraduationCap className="size-4 text-violet" /> 2021 — 2023
+                </p>
+                <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.04em]">
+                  Higher Secondary — Science
+                </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   St. Michael&apos;s HSS Kaduthuruthy, DHSE Kerala · 86.83%
                 </p>
@@ -334,21 +364,32 @@ function Portfolio() {
                 system features through live demos. Published 10+ full-stack and AI projects on GitHub.
               </div>
             </div>
-            <div className="md:col-span-5">
-              <p className="label">Certifications</p>
+            <div className="reveal md:col-span-5">
+              <p className="label flex items-center gap-2">
+                <Award className="size-4 text-primary" /> Certifications
+              </p>
               <ul className="mt-4 space-y-4">
-                {CERTS.map((c) => (
-                  <li key={c} className="flex gap-4 border-b border-border pb-4 text-sm leading-relaxed">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                {CERTS.map((c, ci) => (
+                  <li
+                    key={c}
+                    className="flex gap-4 border-b border-border pb-4 text-sm leading-relaxed transition-transform duration-300 hover:translate-x-1"
+                  >
+                    <span
+                      className={`mt-1.5 size-2.5 shrink-0 rounded-full ${["bg-primary", "bg-violet", "bg-mint", "bg-amber"][ci % 4]}`}
+                    />
                     {c}
                   </li>
                 ))}
               </ul>
-              <p className="label mt-10">Languages</p>
+              <p className="label mt-10 flex items-center gap-2">
+                <Languages className="size-4 text-primary" /> Languages
+              </p>
               <p className="mt-3 text-sm text-muted-foreground">
                 English (Proficient) · Malayalam (Native)
               </p>
-              <p className="label mt-10">Soft skills</p>
+              <p className="label mt-10 flex items-center gap-2">
+                <HeartHandshake className="size-4 text-primary" /> Soft skills
+              </p>
               <p className="mt-3 text-sm text-muted-foreground">
                 Problem solving · Team collaboration · Communication · Adaptability · Time management
               </p>
