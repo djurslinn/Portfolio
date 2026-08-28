@@ -302,7 +302,7 @@ function Portfolio() {
           <SectionHeading n="03" title="Stack" />
           <dl className="reveal grid gap-px overflow-hidden rounded-lg border border-border bg-border">
             {STACK.map((s, si) => {
-              const Icon = STACK_ICONS[si % STACK_ICONS.length];
+              const Icon = STACK_ICONS[si % STACK_ICONS.length]!;
               return (
                 <div
                   key={s.k}
