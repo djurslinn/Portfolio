@@ -35,6 +35,10 @@
   --color-mist: var(--mist);
   --color-sky: var(--sky);
   --color-sky-deep: var(--sky-deep);
+  --color-violet: var(--violet);
+  --color-mint: var(--mint);
+  --color-amber: var(--amber);
+  --color-coral: var(--coral);
   --font-display: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -46,7 +50,11 @@
   --ink: oklch(0.18 0.015 250);
   --mist: oklch(0.965 0.008 240);
   --sky: oklch(0.86 0.055 235);
-  --sky-deep: oklch(0.62 0.13 240);
+  --sky-deep: oklch(0.6 0.14 240);
+  --violet: oklch(0.84 0.07 290);
+  --mint: oklch(0.88 0.08 165);
+  --amber: oklch(0.87 0.1 80);
+  --coral: oklch(0.82 0.09 35);
 
   --background: oklch(0.99 0.004 240);
   --foreground: var(--ink);
@@ -86,7 +94,12 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-weight: 450;
     -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   ::selection {
@@ -140,4 +153,39 @@
 
 @utility rise {
   animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes ping-dot {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  80%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.ping-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: ping-dot 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
