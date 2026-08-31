@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -13,12 +13,17 @@ import {
   Wrench,
   Sparkles,
   GraduationCap,
-  Award,
   Languages,
   HeartHandshake,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { SiGithub, SiInstagram, SiBehance, SiWhatsapp } from "react-icons/si";
 
+import certIbm from "../assets/cert-ibm.jpg";
+import certAgents from "../assets/cert-google-agents.jpg";
+import certGoogleAi from "../assets/cert-google-ai.jpg";
+import certCyber from "../assets/cert-cyber.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,11 +48,12 @@ export const Route = createFileRoute("/")({
 });
 
 const SECTIONS = [
-  { id: "work", n: "01", label: "Selected Work" },
-  { id: "experience", n: "02", label: "Experience" },
-  { id: "stack", n: "03", label: "Stack" },
-  { id: "background", n: "04", label: "Background" },
-  { id: "contact", n: "05", label: "Contact" },
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience" },
+  { id: "stack", label: "Stack" },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
+  { id: "contact", label: "Contact" },
 ];
 
 const PROJECTS = [
@@ -105,10 +111,10 @@ const STACK = [
 ];
 
 const CERTS = [
-  "IBM Full Stack Software Developer Professional Certificate",
-  "5-Day AI Agents Intensive — Google AI",
-  "Google AI Professional Certificate",
-  "Certified Cyber Security Analyst — RedTeam360",
+  { title: "IBM Full Stack Software Developer", issuer: "IBM · Coursera", img: certIbm },
+  { title: "5-Day AI Agents Intensive", issuer: "Google AI", img: certAgents },
+  { title: "Google AI Professional Certificate", issuer: "Google", img: certGoogleAi },
+  { title: "Certified Cyber Security Analyst", issuer: "RedTeam360", img: certCyber },
 ];
 
 const STACK_ICONS = [Code2, Layers, Database, Wrench, Sparkles];
@@ -121,20 +127,36 @@ const SOCIALS = [
   { k: "WhatsApp", href: "https://wa.me/917559947412", icon: SiWhatsapp },
 ];
 
-const CHIP_TONES = [
-  "bg-sky/60 text-foreground",
-  "bg-violet/60 text-foreground",
-  "bg-mint/60 text-foreground",
-  "bg-amber/70 text-foreground",
-  "bg-coral/60 text-foreground",
-];
+/* ---------- primitives ---------- */
 
 function SectionHeading({ n, title }: { n: string; title: string }) {
   return (
-    <div className="reveal mb-10 flex items-baseline gap-4 border-t border-border pt-4">
-      <span className="label">{n}</span>
-      <h2 className="font-display text-2xl uppercase tracking-[0.08em] md:text-3xl">{title}</h2>
+    <div className="reveal mb-12">
+      <div className="flex items-baseline gap-6 border-t border-border pt-5">
+        <span className="label">{n}</span>
+        <h2 className="font-display text-3xl uppercase leading-none tracking-[0.06em] md:text-5xl">
+          {title}
+        </h2>
+        <span
+          aria-hidden
+          className="hollow-text ml-auto hidden font-display text-3xl uppercase leading-none tracking-[0.14em] md:block md:text-5xl"
+        >
+          {title}
+        </span>
+      </div>
     </div>
+  );
+}
+
+function Arc({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className={className} fill="none" aria-hidden>
+      <circle cx="100" cy="100" r="99" stroke="currentColor" strokeWidth="0.5" opacity="0.45" />
+      <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+      <path d="M100 1 A99 99 0 0 1 199 100" stroke="currentColor" strokeWidth="1.4" />
+      <line x1="0" y1="100" x2="200" y2="100" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+      <line x1="100" y1="0" x2="100" y2="200" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+    </svg>
   );
 }
 
@@ -150,173 +172,235 @@ function useReveal() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
     );
     els.forEach((el, i) => {
-      el.style.transitionDelay = `${(i % 4) * 70}ms`;
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
       io.observe(el);
     });
     return () => io.disconnect();
   }, []);
 }
 
+function useTheme() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = stored ? stored === "dark" : prefers;
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+
+  const toggle = () => {
+    setDark((d) => {
+      const next = !d;
+      document.documentElement.classList.toggle("dark", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
+  return { dark, toggle };
+}
+
+function Loader() {
+  const [gone, setGone] = useState(false);
+  const [exiting, setExiting] = useState(false);
+
+  useEffect(() => {
+    const a = setTimeout(() => setExiting(true), 1150);
+    const b = setTimeout(() => setGone(true), 1900);
+    return () => {
+      clearTimeout(a);
+      clearTimeout(b);
+    };
+  }, []);
+
+  if (gone) return null;
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex flex-col justify-end bg-background px-6 pb-10 ${exiting ? "loader-exit" : ""}`}
+    >
+      <div className="mx-auto w-full max-w-6xl">
+        <p className="label mb-4">Djurslinn James — Portfolio</p>
+        <p className="font-display text-[clamp(2.5rem,10vw,7rem)] uppercase leading-none tracking-[0.02em]">
+          Frozen<span className="hollow-text"> Lake</span>
+        </p>
+        <div className="mt-8 h-px w-full bg-border">
+          <div className="loader-bar h-px w-full bg-primary" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- page ---------- */
+
 function Portfolio() {
   useReveal();
+  const { dark, toggle } = useTheme();
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-background text-foreground">
+      <Loader />
+
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/80 backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="font-display text-lg tracking-tight">
+          <a href="#top" className="font-display text-base uppercase tracking-[0.18em]">
             Djurslinn<span className="text-primary">.</span>
           </a>
-          <nav className="hidden gap-7 md:flex">
+          <nav className="hidden gap-7 lg:flex">
             {SECTIONS.map((s) => (
               <a key={s.id} href={`#${s.id}`} className="label link-underline hover:text-foreground">
                 {s.label}
               </a>
             ))}
           </nav>
-          <a
-            href="mailto:djurslinnjameskm@gmail.com"
-            className="label inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
-          >
-            <Mail className="size-3.5" />
-            Get in touch
-          </a>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggle}
+              aria-label="Toggle colour theme"
+              className="grid size-9 place-items-center border border-border text-foreground transition-colors duration-300 hover:border-primary hover:text-primary"
+            >
+              {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </button>
+            <a
+              href="mailto:djurslinnjameskm@gmail.com"
+              className="label hidden items-center gap-2 border border-foreground px-4 py-2.5 text-foreground transition-colors duration-300 hover:bg-foreground hover:text-background sm:inline-flex"
+            >
+              <Mail className="size-3.5" />
+              Get in touch
+            </a>
+          </div>
         </div>
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative overflow-hidden bg-mist px-4 pb-16 pt-6 md:px-6 md:pt-10">
-        <div className="halo pointer-events-none absolute inset-x-0 top-0 h-[520px] opacity-60" />
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-lift)]">
-          <div className="grid md:grid-cols-12">
-            {/* Left */}
-            <div className="relative z-10 px-8 py-12 md:col-span-7 md:px-14 md:py-20">
-              <p className="label rise flex items-center gap-2.5">
-                <span className="ping-dot relative inline-block size-2 rounded-full bg-emerald-500 text-emerald-500" />
-                Full stack developer — Kerala, India
+      <section id="top" className="relative overflow-hidden border-b border-border">
+        <div className="fine-grid pointer-events-none absolute inset-0 opacity-70" />
+        <Arc className="pointer-events-none absolute -right-24 -top-24 size-[420px] text-primary/35 spin-slow" />
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-16 md:grid-cols-12 md:gap-8 md:pb-20 md:pt-24">
+          <div className="md:col-span-8">
+            <p className="label rise flex items-center gap-2.5">
+              <span className="ping-dot relative inline-block size-1.5 rounded-full bg-primary text-primary" />
+              Full stack developer — Kerala, India
+            </p>
+            <h1 className="rise mt-7 font-display text-[clamp(3rem,11vw,8rem)] uppercase leading-[0.86] tracking-[0.01em]">
+              Djurslinn
+              <br />
+              <span className="hollow-text">James</span>
+            </h1>
+            <div className="rise mt-8 h-px w-full bg-border">
+              <div className="draw-line h-px w-2/3 bg-primary" />
+            </div>
+            <div className="mt-8 grid gap-8 sm:grid-cols-12">
+              <p className="rise text-sm leading-relaxed text-muted-foreground sm:col-span-7">
+                BCA graduate building web and AI-powered products with Django, React and PostgreSQL.
+                Clear interfaces, dependable data models, shipped work.
               </p>
-              <h1 className="rise mt-6 font-display text-[clamp(1.9rem,4.6vw,3.4rem)] uppercase leading-[1.15] tracking-tight">
-                Hello, I&apos;m
-                <br />
-                <span className="text-primary">Djurslinn</span> James
-              </h1>
-              <p className="rise mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-                BCA graduate building web and AI-powered products with Django, React and PostgreSQL. Clear
-                interfaces, dependable data models, shipped work.
-              </p>
-              <div className="rise mt-8 flex flex-wrap items-center gap-3">
+              <div className="rise flex flex-col gap-3 sm:col-span-5">
                 <a
                   href="#work"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                  className="group inline-flex items-center justify-between border border-foreground px-5 py-3.5 text-sm font-semibold uppercase tracking-[0.12em] transition-colors duration-300 hover:bg-foreground hover:text-background"
                 >
-                  Projects
+                  Selected work
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+                  className="group inline-flex items-center justify-between border border-border px-5 py-3.5 text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground transition-colors duration-300 hover:border-primary hover:text-primary"
                 >
                   Let&apos;s talk
-                  <ArrowUpRight className="size-4" />
+                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
                 </a>
-              </div>
-              <div className="rise mt-10 flex items-center gap-3">
-                {SOCIALS.map((s) => (
-                  <a
-                    key={s.k}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.k}
-                    className="grid size-10 place-items-center rounded-full bg-mist text-foreground transition-all duration-300 hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <s.icon className="size-[18px]" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — organic panel */}
-            <div className="relative min-h-[300px] overflow-hidden md:col-span-5">
-              <div
-                className="absolute inset-0 bg-[linear-gradient(150deg,var(--sky),var(--violet))]"
-                style={{ clipPath: "ellipse(88% 130% at 100% 50%)" }}
-              />
-              <div className="relative flex h-full flex-col items-center justify-center gap-8 px-8 py-14">
-                <div className="grid size-40 place-items-center rounded-full border border-card/60 bg-card/70 backdrop-blur-sm md:size-48">
-                  <span className="font-display text-4xl uppercase tracking-tight md:text-5xl">DJ</span>
-                </div>
-                <div className="mt-8 flex flex-wrap justify-center gap-2">
-                  {["Django", "React", "PostgreSQL", "GenAI"].map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-card/80 px-3 py-1 font-mono text-[0.65rem] font-medium tracking-wide backdrop-blur-sm"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
 
-          {/* Stat strip */}
-          <dl className="grid grid-cols-2 border-t border-border md:grid-cols-4">
-            {[
-              ["10+", "Projects built"],
-              ["8.16", "CGPA / 10"],
-              ["3", "Internships"],
-              ["4", "Certifications"],
-            ].map(([v, k], i) => (
-              <div
-                key={k}
-                className={`px-8 py-6 md:px-10 ${i > 0 ? "border-l border-border" : ""} ${i === 2 ? "max-md:border-l-0 max-md:border-t" : ""} ${i === 3 ? "max-md:border-t" : ""}`}
-              >
-                <dt className="font-display text-2xl leading-none">{v}</dt>
-                <dd className="label mt-2">{k}</dd>
-              </div>
-            ))}
-          </dl>
+          {/* Right rail — index + meta */}
+          <aside className="rise flex flex-col justify-between gap-8 border-border md:col-span-4 md:border-l md:pl-8">
+            <div>
+              <p className="label">Index</p>
+              <ul className="mt-4 space-y-2">
+                {SECTIONS.map((s, i) => (
+                  <li key={s.id}>
+                    <a
+                      href={`#${s.id}`}
+                      className="group flex items-baseline justify-between border-b border-border py-2 text-sm uppercase tracking-[0.1em] transition-colors duration-300 hover:text-primary"
+                    >
+                      <span>{s.label}</span>
+                      <span className="label transition-transform duration-300 group-hover:-translate-y-0.5">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex items-center gap-2">
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.k}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.k}
+                  className="grid size-9 place-items-center border border-border text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+                >
+                  <s.icon className="size-4" />
+                </a>
+              ))}
+            </div>
+          </aside>
         </div>
-      </section>
 
+        {/* Stat strip */}
+        <dl className="relative mx-auto grid max-w-6xl grid-cols-2 border-t border-border px-6 md:grid-cols-4">
+          {[
+            ["10+", "Projects built"],
+            ["8.16", "CGPA / 10"],
+            ["3", "Internships"],
+            ["4", "Certifications"],
+          ].map(([v, k], i) => (
+            <div
+              key={k}
+              className={`py-6 ${i > 0 ? "md:border-l md:border-border md:pl-8" : ""} ${i % 2 === 1 ? "max-md:border-l max-md:border-border max-md:pl-6" : ""} ${i > 1 ? "max-md:border-t" : ""}`}
+            >
+              <dt className="font-display text-3xl leading-none tracking-[0.02em]">{v}</dt>
+              <dd className="label mt-2">{k}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <main className="mx-auto max-w-6xl px-6 pb-28">
         {/* Work */}
-        <section id="work" className="scroll-mt-24 pt-16">
+        <section id="work" className="scroll-mt-24 pt-24">
           <SectionHeading n="01" title="Selected Work" />
-          <div className="grid gap-6 md:grid-cols-2">
-            {PROJECTS.map((p, pi) => (
+          <div className="grid gap-px bg-border md:grid-cols-2">
+            {PROJECTS.map((p) => (
               <article
                 key={p.n}
-                className="reveal group relative flex flex-col rounded-lg border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent hover:shadow-[var(--shadow-lift)]"
+                className="reveal group relative flex flex-col bg-background p-8 transition-colors duration-500 hover:bg-secondary/60"
               >
                 <div className="flex items-start justify-between">
                   <span className="label">{p.n}</span>
-                  <span className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                  <span className="grid size-9 place-items-center border border-border text-muted-foreground transition-colors duration-300 group-hover:border-primary group-hover:text-primary">
                     <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
                   </span>
                 </div>
-                <h3 className="mt-4 font-display text-2xl uppercase leading-tight tracking-[0.04em] md:text-3xl">
+                <h3 className="mt-6 font-display text-2xl uppercase leading-tight tracking-[0.04em] md:text-3xl">
                   {p.title}
                 </h3>
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {p.stack.split(" · ").map((t, ti) => (
-                    <span
-                      key={t}
-                      className={`rounded-full px-2.5 py-0.5 font-mono text-[0.65rem] font-medium ${CHIP_TONES[(pi + ti) % CHIP_TONES.length]}`}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <ul className="mt-6 space-y-3 border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
+                <p className="label mt-3 text-primary">{p.stack}</p>
+                <ul className="mt-7 space-y-3 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
                   {p.lines.map((l) => (
                     <li key={l} className="flex gap-3">
-                      <span className="mt-2 h-px w-4 shrink-0 bg-accent" />
+                      <span className="mt-2.5 h-px w-5 shrink-0 bg-primary/70" />
                       {l}
                     </li>
                   ))}
@@ -333,7 +417,7 @@ function Portfolio() {
             {EXPERIENCE.map((e) => (
               <li
                 key={e.role}
-                className="reveal group grid gap-4 border-b border-border py-8 transition-colors hover:bg-secondary/60 md:grid-cols-12 md:gap-8 md:px-4"
+                className="reveal group grid gap-4 border-b border-border py-8 transition-colors duration-500 hover:bg-secondary/50 md:grid-cols-12 md:gap-8 md:px-4"
               >
                 <p className="label md:col-span-3">{e.when}</p>
                 <div className="md:col-span-4">
@@ -355,27 +439,23 @@ function Portfolio() {
         {/* Stack */}
         <section id="stack" className="scroll-mt-24 pt-24">
           <SectionHeading n="03" title="Stack" />
-          <dl className="reveal grid gap-px overflow-hidden rounded-lg border border-border bg-border">
+          <dl>
             {STACK.map((s, si) => {
               const Icon = STACK_ICONS[si % STACK_ICONS.length]!;
               return (
                 <div
                   key={s.k}
-                  className="group grid gap-3 bg-card px-6 py-6 transition-colors duration-300 hover:bg-secondary/70 md:grid-cols-12 md:items-center"
+                  className="reveal group grid gap-3 border-b border-border py-6 transition-colors duration-500 hover:bg-secondary/50 md:grid-cols-12 md:items-center md:px-4"
                 >
                   <dt className="flex items-center gap-3 md:col-span-3">
-                    <span
-                      className={`grid size-8 place-items-center rounded-md transition-transform duration-300 group-hover:scale-110 ${CHIP_TONES[si % CHIP_TONES.length]}`}
-                    >
-                      <Icon className="size-4" />
-                    </span>
+                    <Icon className="size-4 text-primary transition-transform duration-300 group-hover:rotate-12" />
                     <span className="label">{s.k}</span>
                   </dt>
-                  <dd className="flex flex-wrap gap-1.5 md:col-span-9">
+                  <dd className="flex flex-wrap gap-x-4 gap-y-2 md:col-span-9">
                     {s.v.split(" · ").map((t) => (
                       <span
                         key={t}
-                        className="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-300 hover:border-primary hover:text-primary"
+                        className="text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground"
                       >
                         {t}
                       </span>
@@ -387,56 +467,41 @@ function Portfolio() {
           </dl>
         </section>
 
-        {/* Background */}
-        <section id="background" className="scroll-mt-24 pt-24">
-          <SectionHeading n="04" title="Background" />
-          <div className="grid gap-12 md:grid-cols-12">
+        {/* Education */}
+        <section id="education" className="scroll-mt-24 pt-24">
+          <SectionHeading n="04" title="Education" />
+          <div className="grid gap-10 md:grid-cols-12">
             <div className="reveal space-y-8 md:col-span-7">
-              <div className="border-l-2 border-primary pl-6">
+              <div className="border-l border-primary pl-6">
                 <p className="label flex items-center gap-2">
                   <GraduationCap className="size-4 text-primary" /> 2023 — 2026
                 </p>
-                <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.04em]">
+                <h3 className="mt-2 font-display text-xl uppercase tracking-[0.05em] md:text-2xl">
                   BCA — Bachelor of Computer Applications
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   St. Thomas College, Palai (MG University) · CGPA 8.16 / 10
                 </p>
               </div>
-              <div className="border-l-2 border-violet pl-6">
+              <div className="border-l border-gold pl-6">
                 <p className="label flex items-center gap-2">
-                  <GraduationCap className="size-4 text-violet" /> 2021 — 2023
+                  <GraduationCap className="size-4 text-gold" /> 2021 — 2023
                 </p>
-                <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.04em]">
+                <h3 className="mt-2 font-display text-xl uppercase tracking-[0.05em] md:text-2xl">
                   Higher Secondary — Science
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   St. Michael&apos;s HSS Kaduthuruthy, DHSE Kerala · 86.83%
                 </p>
               </div>
-              <div className="rounded-lg bg-secondary p-6 text-sm leading-relaxed text-muted-foreground">
-                Volunteered at the college tech fest OS Exhibition — set up the lab and explained 50+ operating
-                system features through live demos. Published 10+ full-stack and AI projects on GitHub.
-              </div>
-            </div>
-            <div className="reveal md:col-span-5">
-              <p className="label flex items-center gap-2">
-                <Award className="size-4 text-primary" /> Certifications
+              <p className="border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+                Volunteered at the college tech fest OS Exhibition — set up the lab and explained 50+
+                operating system features through live demos. Published 10+ full-stack and AI projects on
+                GitHub.
               </p>
-              <ul className="mt-4 space-y-4">
-                {CERTS.map((c, ci) => (
-                  <li
-                    key={c}
-                    className="flex gap-4 border-b border-border pb-4 text-sm leading-relaxed transition-transform duration-300 hover:translate-x-1"
-                  >
-                    <span
-                      className={`mt-1.5 size-2.5 shrink-0 rounded-full ${["bg-primary", "bg-violet", "bg-mint", "bg-amber"][ci % 4]}`}
-                    />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-              <p className="label mt-10 flex items-center gap-2">
+            </div>
+            <div className="reveal md:col-span-5 md:border-l md:border-border md:pl-8">
+              <p className="label flex items-center gap-2">
                 <Languages className="size-4 text-primary" /> Languages
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -448,66 +513,93 @@ function Portfolio() {
               <p className="mt-3 text-sm text-muted-foreground">
                 Problem solving · Team collaboration · Communication · Adaptability · Time management
               </p>
+              <Arc className="mt-12 hidden size-40 text-primary/40 md:block" />
             </div>
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section id="certifications" className="scroll-mt-24 pt-24">
+          <SectionHeading n="05" title="Certifications" />
+          <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {CERTS.map((c, ci) => (
+              <article
+                key={c.title}
+                className="reveal group bg-background p-5 transition-colors duration-500 hover:bg-secondary/60"
+              >
+                <div className="overflow-hidden border border-border">
+                  <img
+                    src={c.img}
+                    alt={`${c.title} certificate illustration`}
+                    loading="lazy"
+                    className="aspect-4/3 w-full object-cover grayscale transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+                  />
+                </div>
+                <p className="label mt-5">{String(ci + 1).padStart(2, "0")}</p>
+                <h3 className="mt-2 font-display text-base uppercase leading-snug tracking-[0.05em]">
+                  {c.title}
+                </h3>
+                <p className="mt-2 text-xs text-muted-foreground">{c.issuer}</p>
+              </article>
+            ))}
           </div>
         </section>
 
         {/* Contact */}
         <section id="contact" className="scroll-mt-24 pt-24">
-          <SectionHeading n="05" title="Contact" />
-          <div className="relative overflow-hidden rounded-xl border border-border bg-card p-10 md:p-16">
-            <div className="halo pointer-events-none absolute inset-x-0 -top-24 h-72 opacity-80" />
-            <div className="relative">
-              <p className="font-display text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.05] tracking-[0.03em]">
-                Let&apos;s build something
-                <br />
-                <span className="font-serif italic text-primary">worth shipping.</span>
-              </p>
-              <a
-                href="mailto:djurslinnjameskm@gmail.com"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
-              >
-                <Mail className="size-4" />
-                Send me an email
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-              <div className="mt-10 grid gap-6 border-t border-border pt-8 md:grid-cols-4">
-                {[
-                  {
-                    k: "Email",
-                    v: "djurslinnjameskm@gmail.com",
-                    href: "mailto:djurslinnjameskm@gmail.com",
-                    icon: Mail,
-                  },
-                  { k: "Phone", v: "+91 75599 47412", href: "tel:+917559947412", icon: Phone },
-                  {
-                    k: "LinkedIn",
-                    v: "in/djurslinn-james",
-                    href: "https://linkedin.com/in/djurslinn-james",
-                    icon: Linkedin,
-                  },
-                  { k: "GitHub", v: "github.com/djurslinn", href: "https://github.com/djurslinn", icon: Github },
-                ].map((c, ci) => (
-                  <div key={c.k} className="group">
-                    <p className="label flex items-center gap-2">
-                      <span
-                        className={`grid size-6 place-items-center rounded-md ${CHIP_TONES[ci % CHIP_TONES.length]}`}
-                      >
-                        <c.icon className="size-3.5" />
-                      </span>
-                      {c.k}
-                    </p>
-                    <a
-                      href={c.href}
-                      target={c.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
-                      className="link-underline mt-2 inline-block break-all text-sm font-medium hover:text-primary"
-                    >
-                      {c.v}
-                    </a>
-                  </div>
-                ))}
-              </div>
+          <SectionHeading n="06" title="Contact" />
+          <div className="reveal relative overflow-hidden border-t border-border pt-12">
+            <Arc className="pointer-events-none absolute -right-16 -top-10 size-64 text-primary/30 spin-slow" />
+            <p className="font-display text-[clamp(2.2rem,7vw,5rem)] uppercase leading-[0.92] tracking-[0.02em]">
+              Let&apos;s build something
+              <br />
+              <span className="hollow-text">worth shipping.</span>
+            </p>
+            <a
+              href="mailto:djurslinnjameskm@gmail.com"
+              className="group mt-10 inline-flex items-center gap-3 border border-foreground px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] transition-colors duration-300 hover:bg-foreground hover:text-background"
+            >
+              <Mail className="size-4" />
+              Send me an email
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+            <div className="mt-14 grid gap-8 border-t border-border pt-10 md:grid-cols-4">
+              {[
+                {
+                  k: "Email",
+                  v: "djurslinnjameskm@gmail.com",
+                  href: "mailto:djurslinnjameskm@gmail.com",
+                  icon: Mail,
+                },
+                { k: "Phone", v: "+91 75599 47412", href: "tel:+917559947412", icon: Phone },
+                {
+                  k: "LinkedIn",
+                  v: "in/djurslinn-james",
+                  href: "https://linkedin.com/in/djurslinn-james",
+                  icon: Linkedin,
+                },
+                {
+                  k: "GitHub",
+                  v: "github.com/djurslinn",
+                  href: "https://github.com/djurslinn",
+                  icon: Github,
+                },
+              ].map((c) => (
+                <div key={c.k}>
+                  <p className="label flex items-center gap-2">
+                    <c.icon className="size-3.5 text-primary" />
+                    {c.k}
+                  </p>
+                  <a
+                    href={c.href}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noreferrer"
+                    className="link-underline mt-2 inline-block break-all text-sm font-medium hover:text-primary"
+                  >
+                    {c.v}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </section>
