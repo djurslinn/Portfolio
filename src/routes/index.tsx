@@ -640,10 +640,11 @@ function Portfolio() {
         <div className="border-y border-border">
           <dl className="mx-auto grid max-w-6xl grid-cols-2 md:grid-cols-4">
             {[
-              ["10+", "Projects built"],
-              ["8.16", "CGPA / 10"],
-              ["3", "Internships"],
-              ["4", "Certifications"],
+              ["100%", "Passionate developer"],
+              ["Every day", "Learning & evolving"],
+              ["60+", "Commits & counting"],
+              ["∞", "Problems to solve"],
+
             ].map(([value, label], i) => (
               <div
                 key={label}
