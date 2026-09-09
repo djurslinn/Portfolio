@@ -1,24 +1,43 @@
-# Portfolio Elegance
+# Djurslinn James — Portfolio
 
-create a portfolio website for me based on my resume.the esign should be minimalistic .light color theme incluing light blue ,white ,black.it should look preimum.it should contain a unique design .
+A minimalistic, premium portfolio website built with **TanStack Start**, **React 19**, **Tailwind CSS v4**, and **TypeScript**.
 
-This project was built with [Lovable](https://lovable.dev).
+## Tech Stack
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3e8f8404-acc3-4caa-924d-bd36002718d4).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Framework**: TanStack Start (SSR) + TanStack Router
+- **UI**: React 19, Tailwind CSS v4, Lucide React, React Icons
+- **Build**: Vite, TypeScript
+- **Deployment**: Vercel
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requires Node.js 18+ (or Bun).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+## Deployment
+
+This project is configured for **Vercel**. To deploy:
+
+1. Push this repo to GitHub
+2. Import the repo at [vercel.com/new](https://vercel.com/new)
+3. Vercel will auto-detect the framework and deploy
+
+Or use the Vercel CLI:
+
+```sh
+npm i -g vercel
+vercel
 ```
