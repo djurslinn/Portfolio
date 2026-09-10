@@ -497,7 +497,7 @@ function Portfolio() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" className="flex items-center gap-3">
             <img
-              src="src/assets/dj.svg"
+              src="/dj.svg"
               alt="Djurslinn James logo"
               className="size-9 dark:brightness-0 dark:invert"
             /></a>
@@ -517,7 +517,7 @@ function Portfolio() {
               {dark ? <Sun className="size-4 text-gold" /> : <Moon className="size-4 text-foreground" />}
             </button>
             <a
-              href="src/assets/Djurslinn_James_Resume.pdf"
+              href="/Djurslinn_James_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="label hidden items-center gap-2 border border-foreground px-4 py-2.5 text-foreground transition-colors duration-300 hover:bg-foreground hover:text-background sm:inline-flex"
