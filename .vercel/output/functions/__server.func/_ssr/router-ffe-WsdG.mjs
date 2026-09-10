@@ -4,7 +4,7 @@ import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter,
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 require_react();
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-CP3kT1EJ.css";
+var styles_default = "/assets/styles-BRjjKS1U.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -151,7 +151,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter = () => import("./routes-cMUFYZyK.mjs");
+var $$splitComponentImporter = () => import("./routes-v6brP0t8.mjs");
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "Djurslinn James — Full Stack Developer Portfolio" },
