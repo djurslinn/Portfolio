@@ -4,7 +4,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Mail,
-  Phone,
   Linkedin,
   Github,
   Code2,
@@ -831,7 +830,7 @@ function Portfolio() {
                   href: "mailto:djurslinnjameskm@gmail.com",
                   icon: Mail,
                 },
-                { k: "Phone", v: "+91 75599 47412", href: "tel:+917559947412", icon: Phone },
+
                 {
                   k: "LinkedIn",
                   v: "in/djurslinn-james",
