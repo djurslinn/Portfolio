@@ -549,7 +549,7 @@ function Portfolio() {
                 </a>
               ))}
               <a
-                href="/resume.pdf"
+                href="/Djurslinn_James_Resume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="label flex items-center justify-center gap-2 border border-foreground px-4 py-3 text-foreground transition-colors duration-300 hover:bg-foreground hover:text-background"
