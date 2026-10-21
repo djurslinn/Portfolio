@@ -364,16 +364,6 @@ var Moon = createLucideIcon("moon", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var Phone = createLucideIcon("phone", [["path", {
-	d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
-	key: "9njp5v"
-}]]);
-/**
-* @license lucide-react v0.575.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var Sparkles = createLucideIcon("sparkles", [
 	["path", {
 		d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",
@@ -464,4 +454,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { ChevronLeft as _, Phone as a, ArrowRight as b, Mail as c, GraduationCap as d, Github as f, ChevronRight as g, CodeXml as h, Sparkles as i, Linkedin as l, Database as m, Wrench as n, Moon as o, Download as p, Sun as r, Menu as s, X as t, Layers as u, Award as v, ArrowUpRight as y };
+export { Award as _, Moon as a, Linkedin as c, Github as d, Download as f, ChevronLeft as g, ChevronRight as h, Sparkles as i, Layers as l, CodeXml as m, Wrench as n, Menu as o, Database as p, Sun as r, Mail as s, X as t, GraduationCap as u, ArrowUpRight as v, ArrowRight as y };

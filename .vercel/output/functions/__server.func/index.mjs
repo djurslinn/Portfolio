@@ -39,11 +39,11 @@ var findRouteRules = /* @__PURE__ */ (() => {
 		return r;
 	};
 })();
-var _lazy_EFTw_R = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
+var _lazy_eV36Re = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
 var findRoute = /* @__PURE__ */ (() => {
 	const data = {
 		route: "/**",
-		handler: _lazy_EFTw_R
+		handler: _lazy_eV36Re
 	};
 	return ((_m, p) => {
 		return {

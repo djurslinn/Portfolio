@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { _ as ChevronLeft, a as Phone, b as ArrowRight, c as Mail, d as GraduationCap, f as Github, g as ChevronRight, h as CodeXml, i as Sparkles, l as Linkedin, m as Database, n as Wrench, o as Moon, p as Download, r as Sun, s as Menu, t as X, u as Layers, v as Award, y as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { _ as Award, a as Moon, c as Linkedin, d as Github, f as Download, g as ChevronLeft, h as ChevronRight, i as Sparkles, l as Layers, m as CodeXml, n as Wrench, o as Menu, p as Database, r as Sun, s as Mail, t as X, u as GraduationCap, v as ArrowUpRight, y as ArrowRight } from "../_libs/lucide-react.mjs";
 import { n as SiInstagram, t as SiGithub } from "../_libs/react-icons.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-v6brP0t8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-LQ2Sx24y.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
@@ -726,12 +726,6 @@ function Portfolio() {
 											v: "djurslinnjameskm@gmail.com",
 											href: "mailto:djurslinnjameskm@gmail.com",
 											icon: Mail
-										},
-										{
-											k: "Phone",
-											v: "+91 75599 47412",
-											href: "tel:+917559947412",
-											icon: Phone
 										},
 										{
 											k: "LinkedIn",
